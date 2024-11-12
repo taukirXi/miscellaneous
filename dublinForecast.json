@@ -1,0 +1,26 @@
+{
+    "forecasts": [
+        {
+            "regions": [
+                {
+                    "region": "Dublin"
+                },
+                {
+                    "issued": "2024-11-05T12:30:00Z"
+                },
+                {
+                    "today": "Largely cloudy today and mainly dry with just isolated patches of drizzle and mist. Highest temperatures of 14 to 16 degrees in moderate south to southeast winds."
+                },
+                {
+                    "tonight": "Cloudy tonight with some patchy drizzle and mist. Lowest temperatures of 11 to 13 degrees and light to moderate southerly breezes."
+                },
+                {
+                    "tomorrow": "Generally cloudy tomorrow with patchy outbreaks of drizzle, but overall lots of dry weather. Hill and coastal fog will develop during the afternoon and evening. Highest temperatures of 14 to 17 degrees in moderate south to southeast winds."
+                },
+                {
+                    "outlook": ""
+                }
+            ]
+        }
+    ]
+}
