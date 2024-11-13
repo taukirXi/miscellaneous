@@ -14,14 +14,12 @@ def server_process3():
         port = 9999
         # bidning the socket with ip address and port number
         server_socket.bind((host, port))
+        server_socket.listen()
         print(f"server is ready-------------------")
 
-        server_socket.listen()
-
-        print(f"setting time out for 30 s-------------")
+        # print(f"setting time out for 30 s-------------")
         # server_socket.settimeout(30)
         conn, addr = server_socket.accept()
-
         print(f"conn: {conn} addr: {addr}")
 
         while True:
@@ -35,12 +33,20 @@ def server_process3():
             #     if if_server_wants_to_close_the_conn == 'y':
             #         break
             print(f"message decoded: {msg.decode()}")
-            print(f"received message---------------")
 
-        # server_socket.sendall(msg)
-        conn.close()
+            try:
+                conn.sendall(msg)
+                print("Echoed message back to client.")
+            except Exception as e:
+                print(f"{e}")
+                break
+        # conn.close()
     except TimeoutError as e:
         print(f"{e} connection closed")
+    finally:
+        conn.close()
+        server_socket.close()
+        print("Server socket closed.")
 
 
 server_process3()

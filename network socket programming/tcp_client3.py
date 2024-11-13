@@ -10,6 +10,7 @@ def send_message_from_client():
         client_socket = socket.socket(
             socket.AF_INET, socket.SOCK_STREAM)  # to specify a connection
         host = socket.gethostname()
+        print(f"host name: {host}")
         port = 9999
 
         client_socket.connect((host, port))
@@ -27,9 +28,12 @@ def send_message_from_client():
             print(converted_str)
             print(f"sending message")
 
-            # response = client_socket.recv(1024)
-            # print(f"received message{response}")
-            # print(response.decode())
+            try:
+                response_msg_from_server = client_socket.recv(1024)
+                print(f"received message{response_msg_from_server.decode()}")
+                print(response_msg_from_server.decode())
+            except Exception as e:
+                print(f"recv exception: {e}")
     except ConnectionResetError as e:
         print(f"{e}")
 
