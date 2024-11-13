@@ -19,7 +19,7 @@ def server_process():
     print("server is ready....")
 
     print(f"setting time out for 60 s")
-    server_socket.settimeout(30)
+    server_socket.settimeout()
 
     server_socket.listen()
     print(f"listening to the socket for the connection......")

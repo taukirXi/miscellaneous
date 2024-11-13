@@ -13,16 +13,25 @@ def send_message_from_client():
         port = 9999
 
         client_socket.connect((host, port))
+        print(f"client socket -> {client_socket}")
+        while True:
+            msg = input(f"enter some message or exit to break: ")
+            # msg = b'hello from client'
 
-        # msg = input(f"enter some message: ")
-        msg = b'hello from client'
+            if msg.lower() == 'exit':
+                print("closing connection")
+                break
+            # converting byte to string (user input)
+            converted_str = bytes(msg, 'utf-8')
+            client_socket.sendall(converted_str)
+            print(converted_str)
+            print(f"sending message")
 
-        print(f"sending message")
-        client_socket.sendall(msg)
-
-        # print(f"reciving message")
-        # response = client_socket.recv(1024)
-        # print(response.decode())
+            # response = client_socket.recv(1024)
+            # print(f"received message{response}")
+            # print(response.decode())
+    except ConnectionResetError as e:
+        print(f"{e}")
 
     except ConnectionRefusedError:
         print(f"connection refused")

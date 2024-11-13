@@ -9,26 +9,33 @@ def server_process3():
     try:
         server_socket = socket.socket(
             socket.AF_INET, socket.SOCK_STREAM)  # to specify a connection
-        # print(f"{server_socket}")
-    # except Exception as e:
-    #     print(f"error occured: {e}")
         host = socket.gethostname()
         print(host)
         port = 9999
         # bidning the socket with ip address and port number
         server_socket.bind((host, port))
-        print(f"server is ready")
+        print(f"server is ready-------------------")
 
         server_socket.listen()
 
-        print(f"setting time out for 30 s")
-        server_socket.settimeout(30)
+        print(f"setting time out for 30 s-------------")
+        # server_socket.settimeout(30)
         conn, addr = server_socket.accept()
 
-        print(f"receiving message")
+        print(f"conn: {conn} addr: {addr}")
 
-        msg = server_socket.recv(1024)
-        print(msg.decode())
+        while True:
+            msg = conn.recv(1024)
+            if not msg:
+                print("Client has disconnected.")
+                break
+
+            # if not msg:
+            #     if_server_wants_to_close_the_conn = input("want to agree with client server decision: y/n")
+            #     if if_server_wants_to_close_the_conn == 'y':
+            #         break
+            print(f"message decoded: {msg.decode()}")
+            print(f"received message---------------")
 
         # server_socket.sendall(msg)
         conn.close()
