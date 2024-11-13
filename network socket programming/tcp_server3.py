@@ -1,52 +1,46 @@
-# show message from client
-
-
 import socket
 
-
 def server_process3():
-
     try:
-        server_socket = socket.socket(
-            socket.AF_INET, socket.SOCK_STREAM)  # to specify a connection
+        # Set up server socket
+        server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         host = socket.gethostname()
-        print(host)
         port = 9999
-        # bidning the socket with ip address and port number
+
+        # Bind and start listening for connections
         server_socket.bind((host, port))
         server_socket.listen()
-        print(f"server is ready-------------------")
-
-        # print(f"setting time out for 30 s-------------")
-        # server_socket.settimeout(30)
-        conn, addr = server_socket.accept()
-        print(f"conn: {conn} addr: {addr}")
+        print("Server is ready and listening on port", port)
 
         while True:
-            msg = conn.recv(1024)
-            if not msg:
-                print("Client has disconnected.")
-                break
-
-            # if not msg:
-            #     if_server_wants_to_close_the_conn = input("want to agree with client server decision: y/n")
-            #     if if_server_wants_to_close_the_conn == 'y':
-            #         break
-            print(f"message decoded: {msg.decode()}")
+            # Accept a new client connection
+            conn, addr = server_socket.accept()
+            print(f"Connected to client at {addr}")
 
             try:
-                conn.sendall(msg)
-                print("Echoed message back to client.")
+                # Handle messages from this client
+                while True:
+                    msg = conn.recv(1024)
+                    if not msg:
+                        print("Client has disconnected.")
+                        break
+
+                    # Print and send the received message back to the client
+                    print("Received message:", msg.decode())
+                    conn.sendall(msg)
+                    print("Echoed message back to client.")
             except Exception as e:
-                print(f"{e}")
-                break
-        # conn.close()
-    except TimeoutError as e:
-        print(f"{e} connection closed")
+                print("An error occurred while handling client messages:", e)
+            finally:
+                # Close the connection with the current client
+                conn.close()
+                print("Closed connection with client.")
+                
+    except Exception as e:
+        print("An error occurred with the server:", e)
     finally:
-        conn.close()
+        # Close the server socket when done
         server_socket.close()
         print("Server socket closed.")
-
 
 server_process3()

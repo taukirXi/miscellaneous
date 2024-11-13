@@ -30,7 +30,7 @@ def send_message_from_client():
 
             try:
                 response_msg_from_server = client_socket.recv(1024)
-                print(f"received message{response_msg_from_server.decode()}")
+                print(f"received message: {response_msg_from_server.decode()}")
                 print(response_msg_from_server.decode())
             except Exception as e:
                 print(f"recv exception: {e}")
