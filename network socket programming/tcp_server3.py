@@ -1,5 +1,6 @@
 import socket
 
+
 def server_process3():
     try:
         # Set up server socket
@@ -26,7 +27,12 @@ def server_process3():
                         break
 
                     # Print and send the received message back to the client
+
+                    # server can also reply the text
                     print("Received message:", msg.decode())
+                    msg = input("write your reply: ")
+                    msg = bytes(msg, 'utf-8')
+
                     conn.sendall(msg)
                     print("Echoed message back to client.")
             except Exception as e:
@@ -35,12 +41,13 @@ def server_process3():
                 # Close the connection with the current client
                 conn.close()
                 print("Closed connection with client.")
-                
+
     except Exception as e:
         print("An error occurred with the server:", e)
     finally:
         # Close the server socket when done
         server_socket.close()
         print("Server socket closed.")
+
 
 server_process3()
