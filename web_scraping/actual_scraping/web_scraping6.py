@@ -59,4 +59,3 @@ a_tags = left_pan.find_all('a')
 #     a_tags = div.find_all('a')
 #     for tag in a_tags:
 #         print(tag.text)
-
